@@ -44,8 +44,8 @@ const formatAnswer = (input) => {
   );
 };
 
-const validateResponse = (shoot) => {
-  const arr_shoot = Array.from(String(shoot)).sort();
+const validateResponse = (shoot, long) => {
+  const arr_shoot = Array.from(String(shoot), num => Number(num)).sort(); //convert int to array, then order it
 
   let results = [];
   for (let i = 0; i < arr_shoot.length - 1; i++) {
@@ -53,23 +53,34 @@ const validateResponse = (shoot) => {
       results.push(arr_shoot[i]);
     }
   }
-  return arr_shoot.length === 4 && !isNaN(shoot) && results.length === 0;
+  return arr_shoot.length === long && !isNaN(shoot) && results.length === 0;
 };
 
-const game = async () => {
-  const secret = generateRandomNumber(4);
+const game = async (long) => {
+  console.clear();
+  const secret = generateRandomNumber(long);
+  //console.log(secret); //comentar esto
   let win = false;
   let attemp = 1;
 
+  console.log(
+    `I have created a ${long} distinct digit number which you must guess in the least amount of attempts. Good luck!`
+      .yellow
+  );
+
   do {
     const shoot = await leerInput("Please enter a number:");
-
-    if (!validateResponse(shoot)) {
-      console.log("Wrong input!! Your possible answers can only be 4 distinct digit numbers".bgRed);
+    
+    if (!validateResponse(shoot, long)) {
+      console.log(
+        `Wrong input!! Your possible answers can only be ${long} distinct digit numbers`
+          .bgRed,
+        "\n"
+      );
     } else {
       const resp = getResponse(secret, shoot);
       console.log(formatAnswer(resp), "----", `Attemp #${attemp}`.cyan, "\n");
-      resp.good === 4 ? (win = true) : attemp++;
+      resp.good == long ? win = true : attemp++;
     }
   } while (!win);
 
@@ -83,5 +94,5 @@ const game = async () => {
 };
 
 module.exports = {
-  game, validateResponse 
+  game
 };
