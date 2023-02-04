@@ -1,6 +1,6 @@
-require("colors");
-const { game } = require("./helpers/auxiliar");
-const { confirmar, leerInput } = require("./helpers/inquirer");
+import colors from "colors";
+import game from "./helpers/auxiliar.js";
+import { confirmar, leerInput } from "./helpers/inquirer.js";
 
 const main = async () => {
   let playAgain = null;  

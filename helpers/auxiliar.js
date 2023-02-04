@@ -1,5 +1,5 @@
-require("colors");
-const { leerInput } = require("./inquirer");
+import colors from "colors";
+import { leerInput } from "./inquirer.js";
 
 const generateRandomNumber = (long = 4) => {
   const number_seed = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -59,7 +59,6 @@ const validateResponse = (shoot, long) => {
 const game = async (long) => {
   console.clear();
   const secret = generateRandomNumber(long);
-  //console.log(secret); //comentar esto
   let win = false;
   let attemp = 1;
 
@@ -93,6 +92,4 @@ const game = async (long) => {
   }
 };
 
-module.exports = {
-  game
-};
+export default game;

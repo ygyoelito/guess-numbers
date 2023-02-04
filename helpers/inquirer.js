@@ -1,5 +1,5 @@
-const inquirer = require('inquirer');
-require('colors');
+import inquirer from "inquirer";
+import colors from "colors";
 
 const leerInput = async (message) => {
     const question = [
@@ -29,7 +29,4 @@ const confirmar = async (message) => {
     return ok; 
 }
 
-module.exports = {
-    leerInput,
-    confirmar,
-}
+export { leerInput, confirmar };
